@@ -39,11 +39,13 @@ class App extends Component {
 		this.hasChanges = this.hasChanges.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.saveNewChange = this.saveNewChange.bind(this);
+		this.cleanState = this.cleanState.bind(this);
 	}
 
 	selectHero(event) {
 		const heroId = event.target.innerText;
 		//console.log('selectHero: ' + heroId);
+		this.cleanState();
 		this.props.selectHero(heroId);
 	}
 
@@ -59,13 +61,22 @@ class App extends Component {
 		this.setState({ newChange: event.target.value });
 	}
 
+	cleanState() {
+		this.setState({
+			isAddingChange: false,
+			newChange: ''
+		});
+	}
+
 	saveNewChange() {
 		if (
 			this.hasSelectedHero() &&
 			this.state.isAddingChange && 
 			this.state.newChange
 		) {
-			newChange(this.props.selectedHero, this.state.newChange);
+			newChange(this.props.selectedHero, this.state.newChange)
+				.then(this.cleanState)
+				.catch(e => console.error('saveNewChange error: ', e));
 		}
 	}
 

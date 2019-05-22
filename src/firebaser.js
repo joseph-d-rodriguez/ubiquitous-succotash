@@ -13,9 +13,7 @@ export function newChange(hero, change) {
 	heroesRef = db.collection('heroes'),
 	heroRef = heroesRef.doc(hero.id);
 
-	heroRef.update({
+	return heroRef.update({
 		changes: firebase.firestore.FieldValue.arrayUnion(change)
-	})
-		.then(() => console.log(`firestore /heroes/${hero.id} add change: ${change}`))
-		.catch(e => console.error('hero update error: ', e));
+	});
 };
