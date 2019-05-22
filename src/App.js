@@ -4,6 +4,7 @@ import owLogo from './Overwatch_circle_logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { newChange } from './firebaser';
 
 class Change extends Component {
 	constructor(props) {
@@ -29,13 +30,20 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			isAddingChange: false,
+			newChange: ''
+		};
 		this.selectHero = this.selectHero.bind(this);
+		this.hasSelectedHero = this.hasSelectedHero.bind(this);
+		this.hasChanges = this.hasChanges.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.saveNewChange = this.saveNewChange.bind(this);
 	}
 
 	selectHero(event) {
 		const heroId = event.target.innerText;
-		console.log('selectHero: ' + heroId);
+		//console.log('selectHero: ' + heroId);
 		this.props.selectHero(heroId);
 	}
 
@@ -47,15 +55,29 @@ class App extends Component {
 		return this.hasSelectedHero() && this.props.selectedHero.changes && this.props.selectedHero.changes.length;
 	}
 
+	handleChange(event) {
+		this.setState({ newChange: event.target.value });
+	}
+
+	saveNewChange() {
+		if (
+			this.hasSelectedHero() &&
+			this.state.isAddingChange && 
+			this.state.newChange
+		) {
+			newChange(this.props.selectedHero, this.state.newChange);
+		}
+	}
+
 	render() {
-		console.log('render selectedHero: ', this.props.selectedHero);
+		//console.log('render selectedHero: ', this.props.selectedHero);
 
 		let liChanges = null;
 		if (this.props.selectedHero && this.props.selectedHero.changes) {
 			liChanges = this.props.selectedHero.changes.map((change, i) => <li key={i}>{change.description || change}</li>);
 		}
 
-		console.log('liChanges: ', liChanges);
+		//console.log('liChanges: ', liChanges);
 
   return (
     <div className="App">
@@ -85,6 +107,33 @@ class App extends Component {
 					) : 
 					null 
 				}
+				<button 
+				  onClick={() => 
+					this.setState({
+					  isAddingChange: true
+					})
+				  }>
+				  Add Change
+				</button>
+				{ 
+				  this.state.isAddingChange ?
+				    (
+					  <span>
+						<input 
+						  placeholder="What needs to change?"
+						  value={this.state.newChange}
+						  onChange={this.handleChange} 
+						/>
+						<button 
+						  onClick={this.saveNewChange}
+						  disabled={!this.state.newChange}
+						>
+						  Save
+					    </button>
+					  </span>
+					):
+					null
+				}
 	            <ul>
 	  		      {liChanges}
 	            </ul>
@@ -104,12 +153,10 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-	selectHero: heroId => {
-		return {
-			type: "selectHero",
-			selectedHeroId: heroId
-		};
-	}
+	selectHero: heroId => ({
+		type: "selectHero",
+		selectedHeroId: heroId
+	})
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(App);

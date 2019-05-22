@@ -7,11 +7,12 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
 import reducer from './reducer';
 import { createOwGtStore } from './gt-boot';
 
+
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 // Request permission to react-ow-gt, 
 // Then download config json object to src/firebase-config.json
@@ -29,8 +30,6 @@ function parseFirestoreHeroDoc(firebaseHeroDoc) {
 }
 
 const store = createOwGtStore();
-
-console.log('hello state: ', store.getState());
 
 
 // listen to firestore collection
