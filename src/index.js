@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import reducer from './reducer';
+import { createOwGtStore } from './gt-boot';
 
 
 // Request permission to react-ow-gt, 
@@ -26,28 +28,7 @@ function parseFirestoreHeroDoc(firebaseHeroDoc) {
 	return hero;
 }
 
-function reducer(state, { type, changes, payload, selectedHeroId }) {
-	let newState = { changes: state.changes };
-	if (changes) {
-		newState.changes = changes;
-		newState.changesString = JSON.stringify(newState.changes);
-		console.log('reducer has changes: ', newState.changesString.substring(0, 30) + '...');
-
-	} else if (type === "selectHero" && selectedHeroId) {
-		newState.selectedHero = newState.changes[selectedHeroId];
-	} else {
-		return state;
-	}
-
-	return newState;
-}
-
-const store = createStore(
-	reducer,
-	{
-		changes: {}
-	}
-);
+const store = createOwGtStore();
 
 console.log('hello state: ', store.getState());
 
