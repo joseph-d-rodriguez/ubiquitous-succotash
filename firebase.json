@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+	"target": "react",
 	"predeploy": "./ow-gt-compile.sh",
     "public": "build",
     "ignore": [

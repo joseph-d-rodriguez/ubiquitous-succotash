@@ -20,6 +20,14 @@ Deploy your website:
 
 * $: `firebase deploy`
 
+* $: `firebase target:apply hosting <YOUR_ALIAS> <YOUR_APP_ID>`
+
+  * reference: https://firebase.google.com/docs/hosting/multisites
+
+  * `firebase target:apply react react-ow-gt`
+    
+    * this creates a target alias so we can then update the `firebase.json` hosting to specify which app to deploy to. single or multiple possibilities. 
+
 ### Snippets
 
 

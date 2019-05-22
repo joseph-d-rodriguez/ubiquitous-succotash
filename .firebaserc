@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "overwatch-gt"
+  },
+  "targets": {
+    "overwatch-gt": {
+      "hosting": {
+        "react": [
+          "react-ow-gt"
+        ]
+      }
+    }
   }
 }
