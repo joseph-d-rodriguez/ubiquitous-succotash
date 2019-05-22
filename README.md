@@ -66,3 +66,28 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+### Overwatch GT Data Design
+
+#### We want to store changes to various components
+
+* Heroes (this first priority)
+
+  * `/heroes/<HERO_NAME>`
+
+  * subcollection `/heroes/<HERO_NAME>/changes` fields:
+
+    * `patch_notes: string`
+
+    * `script: { name: string, /* up to player how to script */ }`
+
+* General Mechanics
+
+* Maps
+
+* HUD
+
+* Game Modes
+
+
