@@ -1,4 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*(aka `npx create-react-app react-ow-gt`)*
+
+* This project requires Node.
+
+* After installing Node and cloning this repo remember to `npm install`.
+
+* `npm start` should now be available and you can continue to update the Firestore/React/Redux source code to see the updates live in your browser.
 
 ## Available Scripts
 
